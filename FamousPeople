@@ -1,0 +1,74 @@
+/* Create table about the people and what they do here */
+CREATE TABLE football_players(
+    id INTEGER PRIMARY KEY,
+    full_name TEXT,
+    age INTEGER,
+    country TEXT,
+    position INTEGER,
+    club INTEGER);
+    
+INSERT INTO football_players(full_name, age, country, position, club) VALUES ("Christian Erikson","30","Denmark", "4","2");
+INSERT INTO football_players(full_name, age, country, position, club) values ("Christian Nordgaard","27","Denmark","4","1");
+INSERT INTO football_players(full_name, age, country, position, club) VALUES ("David Raya","26","Spain", "3", "1");
+INSERT INTO football_players(full_name, age, country, position, club) VALUES ("Tony Kroos","32","Germany","4","4"); 
+INSERT into football_players(full_name, age, country, position, club) VALUES ("Rico Henry","28","England", "2","1");
+insert into football_players(full_name, age, country, position, club) VALUES ("Lionel Messi","34","Argentina", "1","6");
+INSERT INTO football_players(full_name, age, country, position, club) VALUES ("Pontus Janson","32","Sweden","2","2");
+INSERT INTO football_players(full_name, age, country, position, club) VALUES ("Kylian Mbappe","22","French","1","6");
+INSERT INTO football_players(full_name, age, country, position, club) VALUES ("Aaron Ramsey","32","Wales", "4","7");
+INSERT INTO football_players(full_name, age, country, position, club) VALUES ("Ivan Toney","26","England", "1","1");
+INSERT INTO football_players(full_name, age, country, position, club) VALUES ("Kevin DeBruyne","28","Belguim", "1","5");
+INSERT INTO football_players(full_name, age, country, position) VALUES ("Gareth Bale","33","Wales", "1");
+    
+CREATE TABLE football_clubs (
+    id INTEGER PRIMARY KEY,
+    club_name TEXT,
+    league TEXT);
+    
+INSERT INTO football_clubs(club_name, league) VALUES ("Brentford", "Premiership");
+INSERT INTO football_clubs(club_name, league) VALUES ("Man Utd", "Premiership");
+INSERT INTO football_clubs(club_name, league) VALUES ("Barcelona", "La Liga");
+INSERT INTO football_clubs(club_name, league) VALUES ("Real Madrid", "La Liga");
+INSERT INTO football_clubs(club_name, league) VALUES ("Man City", "Premiership");
+INSERT INTO football_clubs(club_name, league) VALUES ("PSG", "Ligue 1");
+INSERT INTO football_clubs(club_name, league) VALUES ("Lille", "Ligue 1");
+    
+CREATE TABLE football_positions (
+    id INTEGER PRIMARY KEY,
+    position TEXT);
+    
+INSERT INTO football_positions(position) VALUES ("ATTACK");
+INSERT INTO football_positions(position) VALUES ("DEF");
+INSERT INTO football_positions(position) VALUES ("GK");
+INSERT INTO football_positions(position) VALUES ("MID");
+
+select * from football_positions;
+select * from football_clubs;
+select * from football_players;
+
+select football_players.full_name, football_players.country, football_positions.position from football_players
+    join football_positions
+    on football_players.position = football_positions.id
+    order by football_positions.position;
+    
+select football_players.full_name, football_players.country, football_positions.position 
+    from football_players
+    join football_positions
+    on football_players.position = football_positions.id
+    order by country;
+    
+SELECT football_players.full_name, football_positions.position, football_clubs.club_name, football_clubs.league
+    FROM football_players
+    LEFT OUTER JOIN football_clubs
+    ON football_players.club = football_clubs.id
+    LEFT OUTER JOIN football_positions
+    ON football_players.position = football_positions.id
+    ORDER BY league DESC, club_name, football_positions.position;
+    
+SELECT football_players.full_name, football_players.age, football_positions.position
+    FROM football_players
+    LEFT OUTER JOIN football_positions
+    ON football_players.position = football_positions.id
+    ORDER BY football_players.age, football_positions.position
+    
+    
