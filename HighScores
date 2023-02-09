@@ -1,0 +1,54 @@
+/* What does the app's SQL look like? */
+create table high_scores (
+    id integer primary key,
+    score integer,
+    initials text,
+    difficulty integer);
+    
+insert into high_scores(score, initials, difficulty) values (12345, "PML", 4);
+insert into high_scores(score, initials, difficulty) values (1000, "DHL", 2);
+insert into high_scores(score, initials, difficulty) values (125, "BPL", 1);
+SELECT * FROM high_scores;
+
+create table level_difficulty (
+    id integer primary key,
+    level text);
+    
+insert into level_difficulty(level) values ("easy");
+insert into level_difficulty(level) values ("medium");
+insert into level_difficulty(level) values ("hard");
+insert into level_difficulty(level) values ("very hard");
+insert into level_difficulty(level) values ("extreme");
+SELECT * FROM level_difficulty;
+
+select score, initials, level from high_scores
+    join level_difficulty
+    on high_scores.difficulty = level_difficulty.id
+    order by score desc;
+    
+insert into high_scores(score, initials, difficulty) values (450, "JAS", 3);
+select high_scores.id, score, initials, level from high_scores
+    join level_difficulty
+    on high_scores.difficulty = level_difficulty.id
+    order by score desc;
+    
+delete from high_scores where id=1;
+select * from high_scores;
+
+insert into high_scores(score, initials, difficulty) values (12345, "PML", 4);
+    
+begin;
+update high_scores set difficulty = "2" where id = "3";
+select high_scores.id, score, initials, level from high_scores
+    join level_difficulty
+    on high_scores.difficulty = level_difficulty.id
+    order by score desc;
+commit;
+
+begin;
+update high_scores set initials = "MJL" where initials ="PML";
+select score, initials, level from high_scores
+    join level_difficulty
+    on high_scores.difficulty = level_difficulty.id
+    order by score desc;
+commit;
